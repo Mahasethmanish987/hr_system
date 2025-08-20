@@ -3,7 +3,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 class CookieJWTAuthentication(JWTAuthentication):
 
     def authenticate(self,request): 
+        print("cookie called")
         raw_token = request.COOKIES.get("access_token")
+        print(raw_token)
         if raw_token is None:
             header = self.get_header(request)
             if header is not None:
@@ -11,6 +13,7 @@ class CookieJWTAuthentication(JWTAuthentication):
 
         # Still no token? Return None (unauthenticated)
         if raw_token is None:
+            print('no raw_token')
             return None
 
         # Validate and return user

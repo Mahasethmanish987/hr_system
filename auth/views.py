@@ -44,7 +44,7 @@ class  LoginView(APIView):
             value=tokens['access_token'],
             httponly=True,
             secure=False , 
-            samesite='Lax',
+            samesite=None,
             max_age=60*15
         )
         return response 
@@ -101,8 +101,8 @@ class RefreshTokenView(APIView):
                 key="access_token",
                 value=new_access_token,
                 httponly=True,
-                secure=secure_cookie,
-                samesite="Lax",
+                secure=False,
+                samesite=None,
                 max_age=900,  # 15 minutes
             )
 

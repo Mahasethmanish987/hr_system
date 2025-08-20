@@ -150,4 +150,9 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",     # Vue default dev server
+    "http://127.0.0.1:5173",
+    "http://192.168.0.177:5173", # if he opens via LAN IP
+]
+CORS_ALLOW_CREDENTIALS = True

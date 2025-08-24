@@ -25,6 +25,7 @@ from .serializers import (
     JobTitleSerializer,
     
 )
+
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import EmployeeFilter

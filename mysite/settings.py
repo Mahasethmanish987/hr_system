@@ -22,10 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6cv9%!rklvo0$)o#veeh5jap($0+#k%5rq&_+8o@kwzzkf9ts*'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
+
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.200','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.193','127.0.0.1']
 
 
 
@@ -44,7 +45,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     'task',
-    'attendance_module'
+    'attendance_module',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -113,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -143,7 +146,7 @@ REST_FRAMEWORK = {
     ),
 }
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
@@ -151,8 +154,18 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",     # Vue default dev server
-    "http://127.0.0.1:5173",
-    "http://192.168.0.177:5173", # if he opens via LAN IP
+    "http://localhost:3000",     # Vue default dev server
+    "http://127.0.0.1:30000",
+   
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Kathmandu"
+CELERY_ENABLE_UTC = True
+CELERY_TASK_RESULT_EXPIRES = 3600
+CELERY_RESULT_BACKEND = 'django-db'

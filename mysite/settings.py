@@ -26,7 +26,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["hr-system-4.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", ".onrender.com"]
 
 
 INSTALLED_APPS = [

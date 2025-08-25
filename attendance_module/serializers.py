@@ -154,7 +154,7 @@ class AttendanceListSerializer(serializers.ModelSerializer):
       for attr, new_value in validated_data.items():
         old_value = getattr(instance, attr)
         if old_value != new_value:
-            # Convert datetime to string for JSONField
+            
              old_val_for_log = old_value.isoformat() if isinstance(old_value, (datetime.datetime, datetime.date)) else old_value
              new_val_for_log = new_value.isoformat() if isinstance(new_value, (datetime.datetime, datetime.date)) else new_value
   

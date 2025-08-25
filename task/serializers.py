@@ -94,7 +94,7 @@ class  OnboardingOffboardingTaskSerializer(serializers.ModelSerializer):
     )
 
       class Meta: 
-          fields=["task","department","job_title","task_type","applies_to_all"]
+          fields=["task_name","department","job_title","task_type","applies_to_all"]
           model= OnboardingOffboardingTask
 
       def create(self,validated_data): 

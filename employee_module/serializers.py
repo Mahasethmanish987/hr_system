@@ -130,6 +130,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = [
+            "id",
             "phone_number",
             "is_active",
             "employee_code",
@@ -146,6 +147,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "email",
             "current_salary",
         ]
+        read_only_fields = ["id"]
 
     @transaction.atomic
     def create(self, validated_data: dict) -> Employee:
@@ -153,6 +155,9 @@ class EmployeeSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**user_data)  # create the User
         employee = Employee.objects.create(user=user, **validated_data)
         return employee
+    
+    def update(self,validated_data:dict)->Employee: 
+        pass 
 
 
 class EmergencyContactSerializer(serializers.ModelSerializer):

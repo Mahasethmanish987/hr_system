@@ -13,6 +13,8 @@ from django.contrib.auth import get_user_model
 from django.conf import settings 
 from datetime import datetime, timezone
 from employee_module.permissions import IsAnonymousUser
+
+  
 class  LoginView(APIView):
     permission_classes = [IsAnonymousUser]
     

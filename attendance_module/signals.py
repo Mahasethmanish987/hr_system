@@ -8,7 +8,7 @@ from .utils import calculate_working_summary
 @receiver(post_save,sender=Attendance)
 def create_summary(sender,instance,**kwargs): 
     if instance.status == "absent":
-        WorkingSummary.objects.create(
+        WorkingSummary.objects.get_or_create(
             attendance=instance,)
 
     if instance.check_in and instance.check_out: 

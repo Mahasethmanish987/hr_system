@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-6cv9%!rklvo0$)o#veeh5jap($0+#k%5rq&_+8o@kwzzkf9ts*
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.193','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.197','127.0.0.1']
 
 
 
@@ -48,6 +48,11 @@ INSTALLED_APPS = [
     'attendance_module',
     'django_celery_results',
     'django_celery_beat',
+    'leave_module',
+    "drf_spectacular_sidecar",
+    "drf_spectacular",
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -123,8 +128,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
 STATIC_ROOT=BASE_DIR/'static'
@@ -132,18 +135,19 @@ STATIC_ROOT=BASE_DIR/'static'
 MEDIA_URL='media/'
 MEDIA_ROOT=BASE_DIR/'media'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": (
         "django_filters.rest_framework.DjangoFilterBackend",
     ),
+   
 }
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),

@@ -1,58 +1,35 @@
-# --------------------------
-# Base image
-# --------------------------
+# Use official Python image
 FROM python:3.11-slim
 
-# --------------------------
-# Environment variables
-# --------------------------
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# --------------------------
-# Set work directory
-# --------------------------
+# Set working directory
 WORKDIR /app
 
-# --------------------------
-# Install system dependencies
-# --------------------------
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# --------------------------
-# Copy requirements and install Python dependencies
-# --------------------------
+# Copy requirements first for caching
 COPY requirements.txt /app/
+
+# Install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# --------------------------
-# Copy project files
-# --------------------------
+# Copy the project
 COPY . /app/
 
-# --------------------------
-# Apply database migrations
-# --------------------------
+# Make entrypoint executable
+RUN chmod +x /app/entrypoint.sh
 
-
-
-RUN python manage.py migrate
-
-# --------------------------
-# Collect static files
-# --------------------------
-RUN python manage.py collectstatic --noinput
-
-# --------------------------
-# Expose port for Django
-# --------------------------
+# Expose port
 EXPOSE 8000
 
-# --------------------------
-# Default command (Django development server)
-# --------------------------
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Entry point
+ENTRYPOINT ["/app/entrypoint.sh"]

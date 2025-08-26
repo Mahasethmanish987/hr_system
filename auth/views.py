@@ -38,7 +38,7 @@ class  LoginView(APIView):
             'user_id':user.id,
             'access_token':tokens['access_token'],
             'refresh_token':tokens['refresh_token'],
-            'role':user.employee.role
+            'role': [user.employee.role if user.employee else None]
         },status=status.HTTP_200_OK
 
         )

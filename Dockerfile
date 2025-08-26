@@ -38,7 +38,7 @@ COPY . /app/
 # Apply database migrations
 # --------------------------
 
-COPY .env /app/.env  
+
 
 RUN python manage.py migrate
 

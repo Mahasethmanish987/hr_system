@@ -128,3 +128,15 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Asia/Kathmandu"
 CELERY_ENABLE_UTC = True
 CELERY_TASK_RESULT_EXPIRES = 3600
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://hr-system-10.onrender.com",  # must match exactly with the URL in browser
+    "http://localhost:5173",              # your Vue app
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://hr-system-10.onrender.com",
+    "http://localhost:5173",
+]
+CORS_ALLOW_CREDENTIALS = True

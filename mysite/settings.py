@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
 SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-default-key")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = True
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 # INSTALLED APPS
@@ -90,7 +90,7 @@ USE_I18N = True
 USE_TZ = True
 
 # STATIC AND MEDIA
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
 
 MEDIA_URL = "media/"

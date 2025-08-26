@@ -1,3 +1,4 @@
+# leave_module/apps.py
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 from django.contrib.auth import get_user_model
@@ -22,7 +23,6 @@ class LeaveModuleConfig(AppConfig):
                     User.objects.create_superuser(username=username, email=email, password=password)
                     print(f"✅ Superuser {username} created.")
             except OperationalError:
-                pass  # Ignore if DB isn't ready yet
+                pass
 
-        # Do NOT use sender=self; use AppConfig class instead
-        post_migrate.connect(create_default_superuser, sender=self.__class__)
+        post_migrate.connect(create_default_superuser)

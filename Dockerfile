@@ -38,7 +38,7 @@ COPY . /app/
 # Apply database migrations
 # --------------------------
 
-RUN python manage.py makemigrations    
+  
 
 RUN python manage.py migrate
 

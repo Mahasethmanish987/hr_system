@@ -22,7 +22,7 @@ class LeaveModuleConfig(AppConfig):
                     User.objects.create_superuser(username=username, email=email, password=password)
                     print(f"✅ Superuser {username} created.")
             except OperationalError:
-                # Happens during migrations before DB is ready → ignore
-                pass
+                pass  # Ignore if DB isn't ready yet
 
-        post_migrate.connect(create_default_superuser, sender=self)
+        # Do NOT use sender=self; use AppConfig class instead
+        post_migrate.connect(create_default_superuser, sender=self.__class__)

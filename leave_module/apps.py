@@ -19,10 +19,12 @@ class LeaveModuleConfig(AppConfig):
                 email = config("DJANGO_SUPERUSER_EMAIL", default="admin@example.com")
                 password = config("DJANGO_SUPERUSER_PASSWORD", default="admin123")
 
+                # Only create superuser if it doesn't exist
                 if not User.objects.filter(username=username).exists():
                     User.objects.create_superuser(username=username, email=email, password=password)
                     print(f"✅ Superuser {username} created.")
             except OperationalError:
                 pass
 
-        post_migrate.connect(create_default_superuser)
+        # Connect only after migrations of the 'auth' app
+        post_migrate.connect(create_default_superuser, sender=User._meta.app_config)

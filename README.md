@@ -1,17 +1,53 @@
-Core Features
+# HR Management System
 
-Employee Management: Create, update, and manage employee profiles, emergency contacts, and employee history.
+A comprehensive HR Management System built with **Django REST Framework**, designed to simplify employee management, attendance tracking, payroll calculation, and more.  
 
-Department & Job Management: Organize employees into departments and assign managers.
+---
 
-Role-Based Permissions: Secure API endpoints for HR, Manager, and Employee roles.
+## 🚀 Core Features
 
-Attendance System: Check-in/check-out, late arrivals, early exits, and automatic daily attendance creation.
+- **Employee Management**
+  - Create, update, and manage employee profiles
+  - Store emergency contacts and employee history  
 
-Overtime Management: Employees can request overtime; HR/Managers can approve or reject requests.
+- **Department & Job Management**
+  - Organize employees into departments  
+  - Assign managers and roles  
 
-Leave Management: Employees can apply for leaves; HR/Managers can approve/reject, and the system automatically updates attendance status.
+- **Role-Based Permissions**
+  - Secure API endpoints for HR, Manager, and Employee roles  
 
-Working Summary: Automatic calculation of worked hours, overtime, and total hours.
+- **Attendance System**
+  - Check-in / Check-out  
+  - Track late arrivals and early exits  
+  - Automatic daily attendance creation  
 
-Audit Logs: Track changes made to attendance records.
+- **Overtime Management**
+  - Employees can request overtime  
+  - HR/Managers can approve or reject requests  
+
+- **Leave Management**
+  - Apply for leaves  
+  - HR/Managers approve/reject requests  
+  - Attendance status auto-updates  
+
+- **Working Summary**
+  - Automatic calculation of worked hours, overtime, and total hours  
+
+- **Audit Logs**
+  - Track changes made to attendance and employee records  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend**: Python, Django, Django REST Framework  
+- **Database**: PostgreSQL  
+- **Task Queue**: Celery + Redis  
+- **Authentication**: JWT / Session-based  
+- **Deployment**: Docker (optional)  
+
+---
+
+## 📂 Project Structure
+

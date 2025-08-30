@@ -57,37 +57,30 @@ hr_system/
 │ ├── views.py
 │ ├── tasks.py
 │ ├── utils.py
-│ ├── filters.py
+│ ├── filters.py # Supports filtering attendance records
 │ └── permissions.py
 ├── employee_module/
 │ ├── models.py
 │ ├── serializers.py
 │ ├── views.py
-│ ├── filters.py
+│ ├── filters.py # Supports filtering employees
 │ └── permissions.py
 ├── leave_module/
 │ ├── models.py
 │ ├── serializers.py
-│ └── views.py
-├── payroll_module/
+│ ├── views.py
+│ └── filters.py # Supports filtering leave requests
+├── task_module/
 │ ├── models.py
 │ ├── serializers.py
 │ └── views.py
-├── careers_module/
-│ ├── models.py
-│ ├── serializers.py
-│ └── views.py
-├── analysis_module/
-│ ├── models.py
-│ ├── serializers.py
-│ └── views.py
-├── system_settings/
-│ ├── models.py
-│ └── serializers.py
 ├── hr_system/
 │ ├── settings.py
 │ ├── urls.py
 │ └── wsgi.py
 ├── manage.py
-└── requirements.txt```
+└── requirements.txt
+
+```
+
 

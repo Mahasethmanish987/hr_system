@@ -1,6 +1,6 @@
- HR Management System
+# HR Management System
 
-A comprehensive HR Management System built with **Django REST Framework**, designed to simplify employee management, attendance tracking, payroll calculation, and more.
+A comprehensive HR Management System built with Django REST Framework, designed to simplify employee management, attendance tracking, payroll calculation, and more.
 
 ---
 
@@ -40,16 +40,16 @@ A comprehensive HR Management System built with **Django REST Framework**, desig
 ---
 
 ## 🛠️ Tech Stack
-- **Backend:** Python, Django, Django REST Framework
-- **Database:** PostgreSQL
-- **Task Queue:** Celery + Redis
-- **Authentication:** JWT / Session-based
-- **Deployment:** Docker (optional)
+- **Backend:** Python, Django, Django REST Framework  
+- **Database:** PostgreSQL  
+- **Task Queue:** Celery + Redis  
+- **Authentication:** JWT / Session-based  
+- **Deployment:** Docker (optional)  
 
 ---
 
 ## 📂 Project Structure
-
+**
 hr_system/
 ├── attendance_module/
 │ ├── models.py
@@ -89,4 +89,4 @@ hr_system/
 │ ├── urls.py
 │ └── wsgi.py
 ├── manage.py
-└── requirements.txt
+└── requirements.txt**

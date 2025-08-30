@@ -49,7 +49,7 @@ A comprehensive HR Management System built with Django REST Framework, designed 
 ---
 
 ## 📂 Project Structure
-**
+```
 hr_system/
 ├── attendance_module/
 │ ├── models.py
@@ -89,4 +89,5 @@ hr_system/
 │ ├── urls.py
 │ └── wsgi.py
 ├── manage.py
-└── requirements.txt**
+└── requirements.txt```
+

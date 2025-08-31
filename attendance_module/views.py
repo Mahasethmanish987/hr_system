@@ -14,9 +14,57 @@ from .serializers import (
     OvertimeSerializer,
     PunchSerializer,
 )
+import logging 
+from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError, DatabaseError
+from rest_framework import exceptions
+logger = logging.getLogger(__name__)
+
+class BaseAPIView(APIView):
+    """Base view with DRY exception handling."""
+
+    def handle_exception(self, exc):
+        if isinstance(exc, Http404):
+            logger.info(f"Resource not found (404): {str(exc)}")
+            return Response(
+                {"error": "The requested resource does not exist."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if isinstance(exc, ObjectDoesNotExist):
+            logger.info(f"Resource not found: {str(exc)}")
+            return Response(
+                {"error": "Resource not found. Please check your request."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if isinstance(exc, IntegrityError):
+            logger.warning(f"Data conflict detected: {str(exc)}")
+            return Response(
+                {"error": "Data conflicts with existing records."},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        if isinstance(exc, DatabaseError):
+            logger.error(f"Database failure: {str(exc)}", exc_info=True)
+            return Response(
+                {"error": "Database unavailable. Please try again later."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
+        if isinstance(exc, exceptions.ValidationError):
+            logger.warning(f"Validation error: {exc.detail}")
+            return Response(
+                {"validation_errors": exc.detail}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Let DRF's default handler process unhandled exceptions
+        logger.critical(f"Unexpected server error: {exc}", exc_info=True)
+        return super().handle_exception(exc)
 
 
-class PunchAPIView(APIView):
+class PunchAPIView(BaseAPIView):
     def post(self, request):
         serializer = PunchSerializer(data=request.data)
 

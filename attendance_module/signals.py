@@ -6,7 +6,9 @@ from .utils import calculate_working_summary
 
 
 @receiver(post_save,sender=Attendance)
-def create_summary(sender,instance,**kwargs): 
+def create_summary(sender,instance,created,**kwargs): 
+    if created: 
+        return 
     if instance.status == "absent":
         WorkingSummary.objects.get_or_create(
             attendance=instance,)

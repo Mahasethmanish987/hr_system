@@ -81,6 +81,10 @@ class OvertimeRequest(TimeStamp):
         Employee, on_delete=models.SET_NULL, null=True, blank=True
     )
 
+    class Meta: 
+
+        unique_together = ('employee', 'attendance')
+
 
 class AttendanceAuditLog(TimeStamp): 
     attendance = models.ForeignKey(

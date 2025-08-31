@@ -11,17 +11,25 @@ def create_daily_attendance():
     active_employees = Employee.objects.filter(is_active=True)
     created_count = 0
 
-    for employee in active_employees:
-        try:
-            obj, created = Attendance.objects.get_or_create(
-                employee=employee, date=today
-            )
-            if created:
-                created_count += 1
-        except Exception as e:
-            print(f"Failed for {employee.employee_code}: {e}")
+    existing_employee_ids=Attendance.objects.filter(date=today).values_list('employee_id', flat=True)
 
-    print(f"Attendance created for {created_count} employees")
+    missing_employees=active_employees.exclude(id__in=existing_employee_ids)
+
+    attendance_to_create=[Attendance(employee=emp,date=today) for emp in missing_employees]
+    Attendance.objects.bulk_create(attendance_to_create)
+    print(f"created attendance for {len(attendance_to_create)}")
+
+    
+def check_leave(employee,date)->bool: 
+    from leave_module.models import LeaveRequest
+    leave=LeaveRequest.objects.filter(
+        employee=employee,
+        start_date__lte=date,
+        end_date__gte=date,
+        status="approved"
+    ).exists()
+    return leave
+
 
 
 @shared_task(name="check_check_out")
@@ -30,7 +38,10 @@ def check_check_out():
 
     absent_attendance = Attendance.objects.filter(date=today, check_in__isnull=True)
     for attendance in absent_attendance:
-        attendance.status = "absent"
+        if check_leave(attendance.employee,today):
+            attendance.status = "leave"
+        else:
+          attendance.status = "absent"
         attendance.save()
 
     forget_checkout_attendance = Attendance.objects.filter(

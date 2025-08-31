@@ -63,6 +63,7 @@ class EmployeeOvertimeViewSet(viewsets.ModelViewSet):
     serializer_class = OvertimeSerializer
     queryset = OvertimeRequest.objects.all()
     permission_classes = [IsAuthenticated]
+    http_method_names = ["get", "post", "put", "patch"]
 
     def get_queryset(self):
         user = self.request.user
@@ -89,10 +90,12 @@ class EmployeeOvertimeApproveViewSet(viewsets.ModelViewSet):
     http_method_names = ["get", "patch"]
 
 
+
 class AttendanceViewset(viewsets.ModelViewSet):
     serializer_class = AttendanceListSerializer
     queryset = Attendance.objects.all()
     permission_classes = [AttendancePermission]
+    http_method_names = ["get", "post", "put", "patch"]
 
     def get_queryset(self):
         user = self.request.user

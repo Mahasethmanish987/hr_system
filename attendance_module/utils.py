@@ -64,11 +64,11 @@ def calculate_working_summary(attendance):
 def determine_status(attendance):
     """Determine status based on check-in/check-out and worked hours."""
     if not attendance.check_in:
-        attendance.status = "Absent"
+        attendance.status = "absent"
         return
 
     if not attendance.check_out:
-        attendance.status = "In-Progress"
+        attendance.status = "in-progress"
         return
 
     # Calculate worked hours
@@ -80,7 +80,7 @@ def determine_status(attendance):
     if worked_hours < 3:
         attendance.status = "absent"
     elif worked_hours < 7:
-        attendance.status = "half-Day"
+        attendance.status = "half-day"
     else:
         attendance.status = "present"
     

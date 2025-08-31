@@ -1,9 +1,10 @@
 from datetime import timedelta
 from pathlib import Path
 import os
-
+import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+from dotenv import load_dotenv
+from decouple import config
 # SECURITY
 SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-default-key")
 DEBUG = True
@@ -65,16 +66,10 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 # DATABASE
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DATABASE_NAME"),
-        "USER": os.environ.get("DATABASE_USER"),
-        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
-        "HOST": os.environ.get("DATABASE_HOST"),
-        "PORT": int(os.environ.get("DATABASE_PORT", 5432)),
-    }
+    "default": dj_database_url.parse(
+        "postgresql://postgres_database_gp67_user:4U3if7BMLF9LKVRKuhcmHkcp3bGsoASL@dpg-d2m89gggjchc73f6fe00-a.oregon-postgres.render.com:5432/postgres_database_gp67"
+    )
 }
-
 # AUTH PASSWORD VALIDATORS
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -120,7 +115,8 @@ CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:
 CORS_ALLOW_CREDENTIALS = True
 
 # CELERY
-CELERY_BROKER_URL = os.environ.get("REDIS_URL")
+CELERY_BROKER_URL = config("REDIS_URL")
+print(CELERY_BROKER_URL)
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
@@ -139,4 +135,4 @@ CORS_ALLOWED_ORIGINS = [
     "https://hr-system-10.onrender.com",
     "http://localhost:5173",
 ]
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True   

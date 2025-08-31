@@ -94,7 +94,8 @@ class JobTitleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JobTitle
-        fields = ["job_title", "department", "is_active", "department_info"]
+        fields = ["id","job_title", "department", "is_active", "department_info"]
+        read_only_fields = ["id"]
 
 
 User = get_user_model()

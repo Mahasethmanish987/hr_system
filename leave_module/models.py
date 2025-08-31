@@ -1,8 +1,6 @@
 from django.db import models
 from employee_module.models import Employee, TimeStamp
 
-# Create your models here.
-
 
 class LeaveBalance(TimeStamp):
     employee = models.ForeignKey(
@@ -12,11 +10,9 @@ class LeaveBalance(TimeStamp):
         blank=True,
         related_name="leave_balances",
     )
-    month = models.DateField(
-        help_text="Month and Year for which the balance is calculated"
-    )
-    casual_leave = models.IntegerField(default=0)
-    sick_leave = models.IntegerField(default=0)
+    month = models.DateField()
+    casual_leaves = models.PositiveIntegerField(default=0)
+    sick_leaves = models.PositiveIntegerField(default=0)
 
     class Meta:
         unique_together = ("employee", "month")
@@ -48,7 +44,7 @@ class LeaveRequest(TimeStamp):
     leave_type = models.CharField(max_length=20, choices=LEAVE_TYPE_CHOICES)
     start_date = models.DateField()
     end_date = models.DateField()
-    is_paid = models.BooleanField(default=True)
+
     reason = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     approved_by = models.ForeignKey(
@@ -65,3 +61,25 @@ class LeaveRequest(TimeStamp):
         if self.start_date and self.end_date:
             self.days = (self.end_date - self.start_date).days + 1
         super().save(*args, **kwargs)
+
+
+class LeaveBalanceAuditTrail(TimeStamp):
+    leave_balance = models.ForeignKey(
+        LeaveBalance,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="audit_trails",
+    )
+    changed_by = models.ForeignKey(
+        Employee,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    changes = models.JSONField()
+
+    def __str__(self):
+        return f"Audit for {self.leave_balance} at {self.created_at}"
+
+

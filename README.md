@@ -1,4 +1,8 @@
 🏢 HR Management System
+https://img.shields.io/badge/Django-3.2-green?style=for-the-badge&logo=django
+https://img.shields.io/badge/Django_REST_Framework-3.12-blue?style=for-the-badge&logo=django
+https://img.shields.io/badge/PostgreSQL-13-teal?style=for-the-badge&logo=postgresql
+https://img.shields.io/badge/JWT_Authentication-supported-yellow?style=for-the-badge&logo=json-web-tokens
 
 A comprehensive HR Management System built with Django REST Framework (DRF) that streamlines employee management, attendance tracking, leave management, and payroll processing. Designed for scalability and ease of use, with role-based access control and automated workflows.
 
@@ -57,6 +61,7 @@ hr_system/
 └── requirements.txt
 
 ```
+
 
 
 

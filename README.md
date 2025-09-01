@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Django](https://img.shields.io/badge/Django-5.2-green)
+![DRF](https://img.shields.io/badge/DRF-3.16-orange)
+
 🏢 HR Management System
 
 A comprehensive HR Management System built with Django REST Framework (DRF).

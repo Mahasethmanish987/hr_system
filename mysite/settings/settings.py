@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'leave_module',
     'drf_spectacular_sidecar',
     'drf_spectacular',
+    'payroll_module'
 ]
 
 MIDDLEWARE = [

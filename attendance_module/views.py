@@ -56,7 +56,8 @@ class BaseAPIView(APIView):
         if isinstance(exc, exceptions.ValidationError):
             logger.warning(f"Validation error: {exc.detail}")
             return Response(
-                {"validation_errors": exc.detail}, status=status.HTTP_400_BAD_REQUEST
+                {"validation_errors": exc.detail},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
         # Let DRF's default handler process unhandled exceptions
@@ -67,45 +68,46 @@ class BaseAPIView(APIView):
 class PunchAPIView(BaseAPIView):
     def post(self, request):
         serializer = PunchSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)  # handled by BaseAPIView if invalid
 
-        if serializer.is_valid():
-            employee_id = serializer.validated_data["employee_id"]
-            employee = Employee.objects.get(id=employee_id)
-            today = timezone.localdate()
-            attendance, created = Attendance.objects.get_or_create(
-                employee=employee, date=today
-            )
+        employee_id = serializer.validated_data["employee_id"]
+        employee = Employee.objects.get(id=employee_id)
+        today = timezone.localdate()
+        attendance, created = Attendance.objects.get_or_create(
+            employee=employee, date=today
+        )
 
-            now = timezone.now()
+        now = timezone.now()
 
-            if not attendance.check_in:
-                attendance.check_in = now
-            elif not attendance.check_out:
-                attendance.check_out = now
-            else:
-                return Response(
-                    {"message": "Already checked in and out for today"},
-                    status=status.HTTP_200_OK,
-                )
-            attendance.save()
+        if not attendance.check_in:
+            attendance.check_in = now
+            message = "Checked in successfully"
+        elif not attendance.check_out:
+            attendance.check_out = now
+            message = "Checked out successfully"
+        else:
             return Response(
-                {
-                    "message": "Punch recorded successfully",
-                    "check_in": timezone.localtime(attendance.check_in).strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    ),
-                    "check_out": timezone.localtime(attendance.check_out).strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    )
-                    if attendance.check_out
-                    else None,
-                    "late_arrival": attendance.late_arrival,
-                    "early_exit": attendance.early_exit,
-                },
+                {"message": "Already checked in and out for today"},
                 status=status.HTTP_200_OK,
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        attendance.save()
+        return Response(
+            {
+                "message": message,
+                "check_in": timezone.localtime(attendance.check_in).strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                ),
+                "check_out": timezone.localtime(attendance.check_out).strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
+                if attendance.check_out
+                else None,
+                "late_arrival": attendance.late_arrival,
+                "early_exit": attendance.early_exit,
+            },
+            status=status.HTTP_200_OK,
+        )
 
 class EmployeeOvertimeViewSet(viewsets.ModelViewSet):
     serializer_class = OvertimeSerializer

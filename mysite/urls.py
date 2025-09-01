@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/task/',include("task.urls")) ,
     path('api/attendance/',include("attendance_module.urls")) ,
     path('api/leave/',include("leave_module.urls")) ,
+    path('api/payroll/',include("payroll_module.urls")),
 
      path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),

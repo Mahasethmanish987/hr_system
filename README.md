@@ -1,52 +1,37 @@
-# HR Management System
+🏢 HR Management System
+A comprehensive HR Management System built with Django REST Framework (DRF) that streamlines employee management, attendance tracking, leave management, and payroll processing. Designed for scalability and ease of use, with role-based access control and automated workflows.
 
-A comprehensive HR Management System built with Django REST Framework, designed to simplify employee management, attendance tracking, payroll calculation, and more.
+✨ Features
+📌 Core Modules
+Employee Management: Full CRUD operations for employees, departments, and job titles.
 
----
+Attendance Tracking: Punch-in/out, late arrival/early exit detection, and automated daily attendance creation.
 
-## 🚀 Core Features
+Leave Management: Request, approve, or reject leaves with automated status updates.
 
-### Employee Management
-- Create, update, and manage employee profiles
-- Store emergency contacts and employee history
+Overtime Management: Submit and review overtime requests.
 
-### Department & Job Management
-- Organize employees into departments
-- Assign managers and roles
+Payroll Calculation: Automatically compute salaries based on attendance and leave data.
 
-### Role-Based Permissions
-- Secure API endpoints for HR, Manager, and Employee roles
+Audit Logs: Track all changes to attendance and employee records.
 
-### Attendance System
-- Check-in / Check-out
-- Track late arrivals and early exits
-- Automatic daily attendance creation
+🛡️ Security & Access Control
+Role-based permissions (HR, Manager, Employee).
 
-### Overtime Management
-- Employees can request overtime
-- HR/Managers can approve or reject requests
+JWT-based authentication with secure cookie handling.
 
-### Leave Management
-- Apply for leaves
-- HR/Managers approve/reject requests
-- Attendance status auto-updates
+Custom permission classes for granular access control.
 
-### Working Summary
-- Automatic calculation of worked hours, overtime, and total hours
+⚙️ Automation
+Celery tasks for:
 
-### Audit Logs
-- Track changes made to attendance and employee records
+Daily attendance creation.
 
----
+Leave balance carry-forward.
 
-## 🛠️ Tech Stack
-- **Backend:** Python, Django, Django REST Framework  
-- **Database:** PostgreSQL  
-- **Task Queue:** Celery + Redis  
-- **Authentication:** JWT / Session-based  
-- **Deployment:** Docker (optional)  
+Auto-check-out at end of day.
 
----
+Signals for automatic creation of related records (e.g., leave balances for new employees).
 
 ## 📂 Project Structure
 ```
@@ -82,5 +67,6 @@ hr_system/
 └── requirements.txt
 
 ```
+
 
 

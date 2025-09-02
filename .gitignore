@@ -1,62 +1,25 @@
-.env
 # Python
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
 *.pyd
-*.so
-*.egg-info/
-*.egg
-*.manifest
-*.spec
+*.sqlite3
+*.db
+
+# Virtualenv
+venv/
+.env
 
 # Django
-*.log
-*.pot
-*.pyc
-db.sqlite3
-db.sqlite3-journal
+/staticfiles/
 media/
-staticfiles/
-local_settings.py
 
-# Virtual environment
-venv/
-ENV/
-env/
-.venv/
-
-# IDEs and editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Unit test / coverage reports
-.coverage
-.tox/
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-
-# Migrations (optional: keep if you want them versioned)
-# **Uncomment if you don't want to track migration files**
-# */migrations/*.py
-# !*/migrations/__init__.py
-
-# System files
-.DS_Store
-Thumbs.db
-/media/
-
+# Celery
 celerybeat-schedule
 celerybeat.pid
 celery.log
-# Pip
-pip-log.txt
-pip-delete-this-directory.txt
 
-# dotenv (environment variables)
-.env
-*.env
+# IDE
+.vscode/
+.idea/
+*.swp

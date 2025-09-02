@@ -45,7 +45,7 @@ class Attendance(TimeStamp):
 
 class WorkingSummary(TimeStamp):
     attendance = models.OneToOneField(
-        Attendance, on_delete=models.SET_NULL, null=True, blank=True
+        Attendance, on_delete=models.SET_NULL, null=True, blank=True,related_name='working_summary'
     )
     worked_hours = models.FloatField(default=0)
     overtime_hours = models.FloatField(default=0)
@@ -101,3 +101,12 @@ class AttendanceAuditLog(TimeStamp):
     changes = models.JSONField()
     def __str__(self):
         return f"Attendance {self.attendance.id} changed by {self.changed_by} at {self.changed_at}"
+
+
+class OvertimeRate(TimeStamp):
+
+    employee=models.OneToOneField(Employee,on_delete=models.SET_NULL,null=True,blank=True,related_name='overtime_rate')
+    overtime_rate=models.DecimalField(max_digits=10,decimal_places=2)
+
+    def __str__(self): 
+            return f"{self.employee.user.username} - {self.rate_per_hour} per hour"

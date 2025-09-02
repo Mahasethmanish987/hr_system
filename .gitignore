@@ -48,7 +48,11 @@ coverage.xml
 # System files
 .DS_Store
 Thumbs.db
+/media/
 
+celerybeat-schedule
+celerybeat.pid
+celery.log
 # Pip
 pip-log.txt
 pip-delete-this-directory.txt

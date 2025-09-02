@@ -29,14 +29,13 @@ def update_work_summary(sender,instance,**kwargs):
     if not attendance:
         return
 
-    # Get or create the working summary for this attendance
+   
     summary, created = WorkingSummary.objects.get_or_create(attendance=attendance)
 
-    # Add overtime requested hours
     summary.overtime_hours += instance.requested_hour
 
-    # Recalculate total hours
+    
     summary.total_hours = summary.worked_hours + summary.overtime_hours
 
-    # Save the summary
+    
     summary.save()

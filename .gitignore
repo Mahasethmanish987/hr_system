@@ -23,3 +23,11 @@ celery.log
 .vscode/
 .idea/
 *.swp
+
+# Media
+media/
+
+# Celery
+celerybeat-schedule*
+*.pid
+*.log

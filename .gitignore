@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+
+# Virtualenv
+venv/
+.env
+
+# Django
+/staticfiles/
+media/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+celery.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Media
+media/
+
+# Celery
+celerybeat-schedule*
+*.pid
+*.log

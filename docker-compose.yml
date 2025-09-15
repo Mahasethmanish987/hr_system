@@ -1,0 +1,57 @@
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=mysite.settings.settings
+    depends_on:
+      - redis
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput --verbosity 3 &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  redis:
+    image: redis:7
+    container_name: redis
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    restart: always
+
+  celery_worker:
+    build: .
+    command: celery -A mysite worker --loglevel=info --concurrency=2
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=mysite.settings.settings
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  celery_beat:
+    build: .
+    command: celery -A mysite beat --loglevel=info
+    volumes:
+      - .:/app
+      - beat_data:/var/celery
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=mysite.settings.settings
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  beat_data:

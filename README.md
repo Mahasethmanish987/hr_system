@@ -18,7 +18,7 @@ This system is scalable, secure, and ideal for organizations looking to reduce m
 | Attendance Tracking  | ⏰   | Track **punch-in/out**, detect **late arrivals** or **early exits**, and maintain **automated daily attendance records**. | ✅ Completed   |
 | Leave Management     | 📋   | Employees can **request leaves**, and managers/HR can **approve or reject**. System automatically updates leave status and balances. | ✅ Completed   |
 | Overtime Management  | 💰   | Submit and review **overtime requests**. Enables tracking of extra working hours for payroll processing. | ✅ Completed   |
-| Payroll Calculation  | 📊   | Automatically compute **salaries based on attendance, leave, and overtime**. Ensures accurate and timely payroll generation. | 🚧 In Progress |
+| Payroll Calculation  | 📊   | Automatically compute **salaries based on attendance, leave, and overtime**. Ensures accurate and timely payroll generation. | ✅ Completed |
 | Audit Logs           | 📝   | Maintain a detailed **history of changes** in attendance and employee records. Supports accountability and compliance. | ✅ Completed   |
 
 ---
@@ -54,32 +54,84 @@ This system is scalable, secure, and ideal for organizations looking to reduce m
 hr_system/
 ├── attendance_module/
 │   ├── models.py
-│   ├── serializers.py
 │   ├── views.py
-│   ├── tasks.py
-│   ├── utils.py
-│   ├── filters.py       # Supports filtering attendance records
-│   └── permissions.py
-├── employee_module/
-│   ├── models.py
 │   ├── serializers.py
-│   ├── views.py
-│   ├── filters.py       # Supports filtering employees
-│   └── permissions.py
+│   ├── services/
+│   │   └── attendance_services.py
+│   ├── filters.py
+│   ├── permissions.py
+│   ├── factories.py
+│   ├── signals.py
+│   └── tests/
+│       └── test_attendance.py
+│
 ├── leave_module/
 │   ├── models.py
-│   ├── serializers.py
+│   ├── services/
+│   │   └── leave_services.py
+│   ├── filters.py
+│   ├── permissions.py
+│   ├── factories.py
+│   ├── signals.py
+│   └── tests/
+│       └── tests_leave.py
+│
+├── employee_module/
+│   ├── models.py
 │   ├── views.py
-│   └── filters.py       # Supports filtering leave requests
+│   ├── serializers.py
+│   ├── services/
+│   │   └── employee_services.py
+│   ├── filters.py
+│   ├── permissions.py
+│   ├── factories.py
+│   ├── signals.py
+│   └── tests/
+│       └── tests_employee.py
+│
+├── auth_module/
+│   ├── models.py
+│   ├── services/
+│   │   ├── authentication_service.py
+│   │   └── token_service.py
+│   ├── serializers.py
+│   ├── permissions.py
+│   ├── signals.py
+│   └── tests/
+│       └── tests_auth.py
+│
+├── payroll_module/
+│   ├── models.py
+│   ├── services/
+│   │   ├── payroll_services.py
+│   │   ├── deduction_calculator.py
+│   │   ├── allowance_calculator.py
+│   │   └── tax_calculator.py
+│   ├── factories.py
+│   ├── signals.py
+│   └── tests/
+│       └── test_payroll.py
+│
 ├── task_module/
 │   ├── models.py
+│   ├── views.py
 │   ├── serializers.py
-│   └── views.py
+│   ├── filters.py
+│   ├── permissions.py
+│   └── factories.py
+│
 ├── hr_system/
 │   ├── settings.py
 │   ├── urls.py
-│   └── wsgi.py
+│   ├── wsgi.py
+│   ├── asgi.py
+│   └── celery.py
+│
+├── conftest.py        # Global pytest fixtures
 ├── manage.py
-└── requirements.txt```
+└── requirements.txt
+
+
+```
 
 

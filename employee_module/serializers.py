@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from rest_framework import serializers
-
+from employee_module.services.employeedata_services import EmployeeWriteService
 from .models import (
     Department,
     EmergencyContact,
@@ -158,8 +158,9 @@ class EmployeeSerializer(serializers.ModelSerializer):
         employee = Employee.objects.create(user=user, **validated_data)
         return employee
     
-    def update(self,validated_data:dict)->Employee: 
-        pass 
+    def update(self,instance,validated_data:dict)->Employee: 
+          employee=EmployeeWriteService.update(instance.id,validated_data)
+          return employee 
 
 
 class EmergencyContactSerializer(serializers.ModelSerializer):
